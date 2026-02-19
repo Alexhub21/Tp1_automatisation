@@ -1,1 +1,1 @@
-$nom="marco de la valise"
+#script qui presente configuration 
