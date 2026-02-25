@@ -26,11 +26,29 @@ $cpuInfo= [PSCustomObject]@{
     FabricantCPU = $cpu.Manufacturer
     NombreDeCoeurs = $cpu.NumberOfCores
 }
-$rapport = 
+$board = Get-CimInstance Win32_BaseBoard
+$bios = Get-CimInstance Win32_BIOS
+$os = Get-CimInstance Win32_OperatingSystem
+$rapport = [PSCustomObject]@{
+    Mode               = $Mode
+    CPU_Nom            = $cpu.Name
+    CPU_Fabricant      = $cpu.Manufacturer
+    CPU_Coeurs         = $cpu.NumberOfCores
+
+    CM_Fabricant       = $board.Manufacturer
+    CM_Modele          = $board.Product
+
+    BIOS_Fabricant     = $bios.Manufacturer
+    BIOS_Version       = $bios.SMBIOSBIOSVersion
+
+    OS_Nom             = $os.Caption
+    OS_Version         = $os.Version
+}
 #ecrire un fichier csv
 if ($CSV) {
     $cheminCsv = Join-Path -Path (Get-Location) -ChildPath "info.csv"
     $cpuInfo | Export-Csv -Path $cheminCsv -NoTypeInformation -Append
+    $rapport | Export-Csv -Path $cheminCsv -NoTypeInformation -Append
 
     Write-Host "CSV ecris : $cheminCsv"
 
