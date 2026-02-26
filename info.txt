@@ -1,0 +1,22 @@
+﻿===========================CARTE MÃˆRE===========================
+Carte mÃ¨re : Pro Q570M-C
+Manufacturier de la carte mÃ¨re : ASUSTeK COMPUTER INC.
+Version du bios : 220707041100029
+
+ ===========================PROCESSEUR===========================
+Nom du processeur : Intel(R) Core(TM) i9-10900 CPU @ 2.80GHz
+Manufacturier du processeur : GenuineIntel
+Nombre de coeurs du processeur : 10
+===========================CARTE GRAPHIQUE===========================
+Nom de la carte graphique : Meta Virtual Monitor
+Version du driver : 17.12.55.198
+===========================DISQUES===========================
+Nom du disque : KINGSTON SNV2S1000G
+Taille du disque : 931.51 GB
+Type de media : Fixed hard disk media
+
+===========================OS===========================
+SystÃ¨me d'exploitation : Microsoft Windows 11 Entreprise
+Version du systÃ¨me d'exploitation : 10.0.22631
+Ã‰dition du systÃ¨me d'exploitation : 4
+

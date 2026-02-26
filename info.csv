@@ -1,2 +1,3 @@
-"Mode","NomCPU","FabricantCPU","NombreDeCoeurs"
-"Tout","13th Gen Intel(R) Core(TM) i7-13700K","GenuineIntel","16"
+"Date","Mode","CarteMere","CPU","GPU","Disk1","OS"
+"2026-02-26 03:37:14","Tout","Pro Q570M-C","Intel(R) Core(TM) i9-10900 CPU @ 2.80GHz","Meta Virtual Monitor","KINGSTON SNV2S1000G","Microsoft Windows 11 Entreprise"
+"2026-02-26 03:41:15","Tout","Pro Q570M-C","Intel(R) Core(TM) i9-10900 CPU @ 2.80GHz","Meta Virtual Monitor","KINGSTON SNV2S1000G","Microsoft Windows 11 Entreprise"
