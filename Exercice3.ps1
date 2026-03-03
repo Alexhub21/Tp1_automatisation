@@ -13,7 +13,24 @@ class SousReseau{
     }
 
     #Methode obenir adresse
-    
+     #Methode obtenir adresse
+   [int] GetAdresse([int]$PositionHote) {
+        if ($PositionHote -lt 0) { throw "PositionHote doit être >= 0" }
+ 
+        $base = IpToUInt32 $this.Adresse
+        $val = [uint32]($base + $PositionHote)
+ 
+        # cast en int (minimal, pour respecter la signature)
+        return [int]$val
+    }
+
+}
+
+#Convertir IP réseau en entier
+
+#Ajouter PositionHote
+
+#Retourner nouvelle IP
 
 
 }
