@@ -4,7 +4,6 @@ class SousReseau{
     [string]$Adresse
     [int]$Masque
     
-
     SousReseau([int]$Id, [int]$TailleDemandee, [string]$Adresse, [int]$Masque){
         $this.Id=$Id
         $this.tailleDemandee=$TailleDemandee
@@ -12,7 +11,6 @@ class SousReseau{
         $this.Masque=$Masque
     }
 
-    #
    #Methode obtenir adresse
 [int] GetAdresse([int]$PositionHote){
     [int]$capacite =[int] [math]::Pow(2,(32-$this.Masque))
@@ -47,8 +45,6 @@ class VLSMCalculateur{
     [string]$AdresseDepart
     [int]$MasqueDepart
     [int[]] $Hotes
-
-    
 
     VLSMCalculateur([string]$AdresseDepart, [int]$MasqueDepart, [int[]]$Hotes){
 
@@ -101,8 +97,6 @@ class VLSMCalculateur{
     }
 
 
-   
-    
     #Methode pour calculer le masque de sous reseau
    [int] GetMasque([int]$Hotes){
 
@@ -125,6 +119,62 @@ class VLSMCalculateur{
         }
         return $masqueSousReseau
 
-    
     }
+
+   [SousReseau[]] Calculer(){
+
+     Write-Debug "Calculer() - début"
+
+    $sousReseaux = @()
+    #trie des hotes par ordre decroissant
+    $HotesTries = $this.Hotes | Sort-Object -Descending
+
+    $tabOctet = $this.AdresseDepart.Split('.')
+    [uint32]$base = 0
+    $i = 0
+    while ($i -lt 4) {
+        $base = ($base * 256) + [uint32]$tabOctet[$i]
+        $i ++
+    }
+    #le calcul séquencielles
+    for ($i = 0;$i -lt $HotesTries.Count; $i++){
+        $NbHote =$HotesTries[$i]
+         [int]$MasqueFin = $this.GetMasque($HotesTries[$i])
+
+        # -shr et -band trouver a partir de recherche sur internet pour convertir entier en adresse ip
+
+        $o1 = [int](($base -shr 24) -band 255)
+        $o2 = [int](($base -shr 16) -band 255)
+        $o3 = [int](($base -shr 8) -band 255)
+        $o4 = [int]($base -band 255)
+
+        $AdresseCourante = "$o1.$o2.$o3.$o4"
+
+         # Créer l'objet SousReseau et l'ajouter à la liste
+        $sousReseau = [SousReseau]::new(($i + 1), $NbHote, $AdresseCourante, $MasqueFin)
+        $sousReseaux += $sousReseau
+
+        # Calculer la capacité du sous-réseau (taille du bloc)
+        [uint32]$CapaciteSousReseau = [uint32][Math]::Pow(2, (32 - $MasqueFin))
+
+        # Avancer à la prochaine adresse réseau (séquentiel)
+        $base = $base + $CapaciteSousReseau  
+
+    }
+    
+        Write-Debug "Calculer() - fin"
+    
+    return $sousReseaux
+    }
+ 
+}
+# petit test
+$DebugPreference="Continue"
+Write-Host "`n===== TEST 5 : Capacité dépassée ====="
+try {
+    $calc = [VLSMCalculateur]::new("192.168.1.0",24,@(200,100))
+    $res = $calc.Calculer()
+}
+catch {
+    Write-Host "ERREUR : $($_.Exception.Message)"
 }

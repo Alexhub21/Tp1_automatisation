@@ -9,7 +9,6 @@ param(
     [string]$CheminEnLigne
 )
 
-
 #recuperation des infos CIM
 $cpu= Get-CimInstance Win32_Processor
 $board = Get-CimInstance Win32_BaseBoard
